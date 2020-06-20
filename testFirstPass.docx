@@ -1,0 +1,77 @@
+/------------------------------------------------------------------------\
+| LN |  OFFSET  | S |                       SOURCE                       |
+|----+----------+---+----------------------------------------------------|
+|  0 |  0       | 0 |    .model small                                    |
+|  1 |  0       | 0 |    .DATA                                           |
+|  2 |  0       | 1 |    HEX db 12h                                      |
+|  3 |  1       | 1 |    a db 127                                        |
+|  4 |  2       | 1 |    a1 db 100001b                                   |
+|  5 |  3       | 1 |    a2 db 0fah                                      |
+|  6 |  4       | 2 |    dec1 dw 15                                      |
+|  7 |  6       | 2 |    b1 dw 111111111111000b                          |
+|  8 |  8       | 2 |    b2 dw 0c123h                                    |
+|  9 |  A       | 4 |    bin dd 1100101b                                 |
+| 10 |  E       | 4 |    c dd 35                                         |
+| 11 |  12      | 4 |    c1 dd 1111111111111110000b                      |
+| 12 |  16      | 4 |    c2 dd 12345678h                                 |
+| 13 |  0       | 0 |    .CODE                                           |
+| 14 |  0       | 6 |    Je label1                                       |
+| 15 |  6       | 0 |    label1:                                         |
+| 16 |  6       | 2 |    Je label1                                       |
+| 17 |  8       | 1 |    Std                                             |
+| 18 |  9       | 3 |    Div dword ptr [edx + esi]                       |
+| 19 |  C       | 3 |    Div byte ptr dS:[edx + esi]                     |
+| 20 |  F       | 4 |    Div byte ptr sS:[edx + esi]                     |
+| 21 |  13      | 3 |    Div dword ptr [esp + esi]                       |
+| 22 |  16      | 4 |    Div dword ptr sS:[edx + esi]                    |
+| 23 |  1A      | 4 |    Div dword ptr eS:[edx + esi]                    |
+| 24 |  1E      | 5 |    jmp label2                                      |
+| 25 |  23      | 6 |    je label2                                       |
+| 26 |  29      | 3 |    Imul ax                                         |
+| 27 |  2C      | 2 |    Imul al                                         |
+| 28 |  2E      | 2 |    Imul eax                                        |
+| 29 |  30      | 2 |    Add ebx, ebx                                    |
+| 30 |  32      | 4 |    And bx, [ebp + esi]                             |
+| 31 |  36      | 8 |    Cmp dec1, 13h                                   |
+| 32 |  3E      | 5 |    jmp label2                                      |
+| 33 |  43      | 0 |    label2:                                         |
+| 34 |  43      | 2 |    jmp label2                                      |
+| 35 |  45      | 3 |    Shl ebx, 10b                                    |
+| 36 |  48      | 3 |    Mov byte ptr[ecx + eax], 0bh                    |
+| 37 |  4B      | 5 |    Mov word ptr es:[ecx + eax], 0bh                |
+| 38 |  50      | 4 |    Mov word ptr[ecx + eax], 0bbbh                  |
+| 39 |  54      | 2 |    Je label1                                       |
+| 40 |  56      | 2 |    jmp label1                                      |
+| 41 |  58      | 6 |    div a                                           |
+Instruction has wrong lengthttt| 42 |  0       | 0 | E   div cs:a                                        |
+| 43 |  5E      | 6 |    div c                                           |
+| 44 |  64      | 0 |    END                                             |
+\------------------------------------------------------------------------/
+
+SEGMENTS TABLE
+/----------------------------\
+| ID |   SEGMENT  |   SIZE   |
+|----+------------+----------|
+|  0 |   .DATA    |  1A      |
+|  1 |   .CODE    |  64      |
+\----------------------------/
+
+USER DEFINED SYMBOLS
+/----------------------------------------\
+| ID |   SYMBOL   |   TYPE   |   VALUE   |
+|----+------------+----------+-----------|
+|  0 |   HEX      |  BYTE    | .DATA:  1 |
+|  1 |   A        |  BYTE    | .DATA:  2 |
+|  2 |   A1       |  BYTE    | .DATA:  3 |
+|  3 |   A2       |  BYTE    | .DATA:  4 |
+|  4 |   DEC1     |  WORD    | .DATA:  6 |
+|  5 |   B1       |  WORD    | .DATA:  8 |
+|  6 |   B2       |  WORD    | .DATA: 10 |
+|  7 |   BIN      |  DWORD   | .DATA: 14 |
+|  8 |   C        |  DWORD   | .DATA: 18 |
+|  9 |   C1       |  DWORD   | .DATA: 22 |
+| 10 |   C2       |  DWORD   | .DATA: 26 |
+| 11 |   LABEL1   |  LABEL   | .CODE:  8 |
+| 12 |   LABEL2   |  LABEL   | .CODE: 69 |
+\----------------------------------------/
+
